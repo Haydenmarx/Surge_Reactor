@@ -1,0 +1,33 @@
+{
+  "name": "surge_reactor_riders",
+  "version": "1.0.0",
+  "description": "\"Rider entry point for Surge Reactor\"",
+  "main": "/server/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Haydenmarx/hrsf87-thesis.git"
+  },
+  "author": "Hayden Marx",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Haydenmarx/hrsf87-thesis/issues"
+  },
+  "homepage": "https://github.com/Haydenmarx/hrsf87-thesis#readme",
+  "devDependencies": {
+    "eslint": "^4.17.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "faker": "^4.1.0",
+    "newrelic": "^2.7.0"
+  },
+  "dependencies": {
+    "axios": "^0.17.1",
+    "koa": "^2.4.1",
+    "koa-bodyparser": "^4.2.0",
+    "koa-router": "^7.4.0",
+    "pg-promise": "^7.4.1"
+  }
+}
