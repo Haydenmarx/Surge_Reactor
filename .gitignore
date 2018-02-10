@@ -5,6 +5,9 @@ config/staging.json
 config/test.json
 database/config.js
 database/generation.js
+database/data/*
+newrelic.js
+aws_config.txt
 
 # OS X
 .DS_Store
