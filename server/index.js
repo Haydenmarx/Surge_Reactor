@@ -1,4 +1,4 @@
-/* eslint no-console: ["error", { allow: ["warn", "error", "log"] }] */
+/* eslint no-console: ["error", { allow: ["warn", "error"] }] */
 
 require('newrelic');
 
@@ -26,6 +26,8 @@ const test = function(name) {
 const test2 = (name) => name;
 
 router.get('/login/:username', async (ctx, next) => {
+  let responseBody;
+  let status = 404;
   try {
     const data = await db.getUser(ctx.params.username);
     const date = new Date();
@@ -56,8 +58,7 @@ router.get('/login/:username', async (ctx, next) => {
       23: 'twentythree',
       24: 'twentyfour',
     }
-    await next();
-    axios.post(
+    await axios.post(
       'http://localhost:3000/fakeMish/surgeRate/',
       {
         rider:
@@ -76,9 +77,25 @@ router.get('/login/:username', async (ctx, next) => {
       },
     )
       .then((response) => {
-        console.log(response.status, response.data);
         if ((response.data.isSurged===false || response.data.isSurged === data[0][hours[hour]])) {
-          console.log('spending money');
+          responseBody = JSON.stringify({
+            response: 'Thank you for choosing Surge Reactor',
+            rider:
+            {
+              id: data[0].id,
+              username: data[0].username,
+              start: {
+                longitude: data[0].start_longitude,
+                latitude: data[0].start_latitude,
+              },
+              destination: {
+                longitude: data[0].destination_longitude,
+                latitude: data[0].destination_latitude,
+              },
+              timestamp: date,
+            },
+          });
+          status = 200;
           axios.post(
             'http://localhost:3000/fakeMish/matches/',
             {
@@ -99,34 +116,37 @@ router.get('/login/:username', async (ctx, next) => {
             },
           )
         } else {
-          console.log('I\'m out of here');
-          ctx.body = 'Thanking for you choosing Surge Reactor';
+          responseBody = JSON.stringify({
+            response: 'See you again soon!',
+            rider:
+            {
+              id: data[0].id,
+              username: data[0].username,
+              start: {
+                longitude: data[0].start_longitude,
+                latitude: data[0].start_latitude,
+              },
+              destination: {
+                longitude: data[0].destination_longitude,
+                latitude: data[0].destination_latitude,
+              },
+              timestamp: date,
+            },
+          });
+          status = 200;
         }
       })
       .catch((err) => {
         console.error('error:', err.message);
-      });
-    ctx.body = JSON.stringify({
-      rider:
-      {
-        id: data[0].id,
-        username: data[0].username,
-        start: {
-          longitude: data[0].start_longitude,
-          latitude: data[0].start_latitude,
-        },
-        destination: {
-          longitude: data[0].destination_longitude,
-          latitude: data[0].destination_latitude,
-        },
-        timestamp: date,
-      },
-    });
+      })
   } catch (error) {
     console.error('err here', error);
     ctx.response.status = 404;
     ctx.body = error;
   }
+  await next();
+  ctx.response.status = status;
+  ctx.body = responseBody;
 });
 
 router.post('/matches', (ctx) => {
@@ -157,7 +177,6 @@ router.post(
   '/fakeMish/matches', bodyParser(),
   async (ctx) => {
     try {
-      console.log('Incoming ride request from:', ctx.request.body);
       ctx.response.status = 200;
       ctx.response.body = ctx.request.body;
     } catch (error) {
