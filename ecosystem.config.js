@@ -1,7 +1,7 @@
 module.exports = {
   apps: [{
     name: 'Surge_Reactor_Riders',
-    script: '/server/index.js'
+    script: './server/index.js'
   }],
   deploy: {
     production: {
