@@ -1,8 +1,8 @@
 {
   "name": "surge_reactor_riders",
   "version": "1.0.0",
-  "description": "\"Rider entry point for Surge Reactor\"",
-  "main": "/server/index.js",
+  "description": "Rider entry point for Surge Reactor",
+  "main": "./server/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "mocha": "node ./node_modules/mocha/bin/mocha",
