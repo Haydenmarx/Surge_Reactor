@@ -1,10 +1,10 @@
-# Project Name
+# Surge Reactor
 
-The project description
+Test user engagement rates against surge pricing at various times
 
 ## Roadmap
 
-View the project roadmap [here](LINK_TO_DOC)
+View the project roadmap [here](https://docs.google.com/document/d/1QuTJCe3SbAThJPpVXHxTcarT7Jzlsx_VOK6vQbj3jpo/edit#heading=h.v30r89j6mgcz)
 
 ## Contributing
 
