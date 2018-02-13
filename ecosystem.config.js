@@ -6,7 +6,7 @@ module.exports = {
   deploy: {
     production: {
       user: 'ubuntu',
-      host: 'ec2-52-53-237-89.us-west-1.compute.amazonaws.com',
+      host: 'ec2-54-215-142-204.us-west-1.compute.amazonaws.com',
       key: '~/.ssh/Surge_Reactor_K.pem',
       ref: 'origin/master',
       repo: 'git@github.com:Haydenmarx/hrsf87-thesis',
